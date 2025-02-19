@@ -32,8 +32,98 @@ The module is designed to be secure and efficient, leveraging Move's resource-or
 
 ## Getting Started
 
-### Prerequisites
+## Smart Contract (Move)
 
-Before you begin, ensure you have the following installed:
+### Module: `betpool::Bets`
 
-- [Move CLI](https://github.com/move-language/move): The Move command-line interface for compiling and testing
+### **Initialize Account**
+
+```move
+public entry fun initialize(account: &signer)
+```
+
+- Ensures the account does not already have a balance.
+- Sets initial balance to 0.
+
+### **Deposit Tokens**
+
+```move
+public entry fun deposit(account: &signer, amount: u64) acquires AptBalance
+```
+
+- Increases the balance by the deposited amount.
+
+### **Withdraw Tokens**
+
+```move
+public entry fun withdraw(account: &signer, amount: u64) acquires AptBalance
+```
+
+- Ensures the user has enough balance before withdrawal.
+- Deducts the withdrawn amount from the balance.
+
+### **Check Balance**
+
+```move
+public fun balance_of(account_addr: address): u64 acquires AptBalance
+```
+
+- Returns the balance of the specified account.
+
+### **Transfer Tokens**
+
+```move
+public fun transfer(from: &signer, to: address, amount: u64) acquires AptBalance
+```
+
+- Ensures the sender has sufficient funds.
+- Deducts the amount from sender and credits the receiver.
+
+---
+
+## Unit Testing (Move)
+
+### Module: `betpool::BetsTest`
+
+The test module verifies the functionality of the `Bets` contract.
+
+### **Test Cases:**
+
+- ``: Ensures an account is initialized with zero balance.
+- ``: Deposits tokens and verifies the new balance.
+- ``: Withdraws tokens and verifies the balance reduction.
+- ``: Checks if the correct balance is returned.
+- ``: Transfers tokens between two accounts and verifies balances.
+
+### **Run Tests**
+
+To execute the unit tests, use:
+
+```sh
+aptos move test
+```
+
+---
+
+## Deployment
+
+### **Compile the Module**
+
+```sh
+aptos move compile
+```
+
+### **Deploy the Module**
+
+```sh
+aptos move publish --profile default
+```
+
+### **Run Functions**
+
+Example: Deposit 10 APT tokens
+
+```sh
+aptos move run --function-id <MODULE_ADDRESS>::Bets::deposit --args u64:10
+```
+
