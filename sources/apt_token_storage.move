@@ -1,6 +1,6 @@
 // apt_token_storage.move
 
-module storage::AptTokenStorage {
+module betpool::Bets {
     use std::signer;
     // use aptos_framework::aptos_coin::AptosCoin;
      use aptos_framework::aptos_account;
@@ -29,39 +29,39 @@ module storage::AptTokenStorage {
         let balance = borrow_global_mut<AptBalance>(signer::address_of(account));
 
         // Increase the balance by the deposited amount
-        aptos_account::transfer(account,@storage,amount);
+        aptos_account::transfer(account,@betpool,amount);
         //balance.balance = balance.balance + amount;
     }
 
-    // Withdraw APT tokens from the account
-    // public entry fun withdraw(account: &signer, amount: u64) acquires AptBalance {
-    //     // Check if the account has a balance
-    //     assert!(exists<AptBalance>(signer::address_of(account)), 1002);
+    //Withdraw APT tokens from the account
+    public entry fun withdraw(account: &signer, amount: u64) acquires AptBalance {
+        // Check if the account has a balance
+        assert!(exists<AptBalance>(signer::address_of(account)), 1002);
 
-    //     // Get the balance of the account
-    //     let balance = borrow_global_mut<AptBalance>(signer::address_of(account));
+        // Get the balance of the account
+        let balance = borrow_global_mut<AptBalance>(signer::address_of(account));
 
-    //       // Increase the balance by the deposited amount
-    //     aptos_account::transfer(@storage,account,amount);
+          // Increase the balance by the deposited amount
+       // aptos_account::transfer(@betpool,account,amount);
 
-    //     // Ensure the account has enough balance to withdraw
-    //     assert!(balance.balance >= amount, 1003);
+        // Ensure the account has enough balance to withdraw
+        assert!(balance.balance >= amount, 1003);
 
-    //     // Decrease the balance by the withdrawn amount
-    //     balance.balance = balance.balance - amount;
-    // }
+        // Decrease the balance by the withdrawn amount
+        balance.balance = balance.balance - amount;
+    }
 
     // Public function to check the balance of a specific address
     // #[view]
-    // public fun balance_of(): u64 acquires AptBalance {
+    // public fun balance_of(account_addr: address): u64 acquires AptBalance {
     //     // Check if the account has a balance
     //     assert!(exists<AptBalance>(account_addr), 1002);
 
     //     // Get the balance of the account
-    //     let balance = aptos_account::balance_of(@storage);
+    //     //let balance = aptos_account::balance_of(@storage);
 
     //     // Return the balance
-    //     balance.balance
+    //     //balance.balance
     // }
 
     //Transfer APT tokens from one account to another
