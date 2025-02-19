@@ -1,6 +1,5 @@
 To include the image in your `README.md` file, you can use the markdown syntax for embedding images. Here's how you can update your `README.md` to include the image and the test results:
 
-```markdown
 # Move Smart Contract: `Bets` Module
 
 This repository contains a Move smart contract module named `Bets`, which allows users to initialize, deposit, withdraw, and transfer APT tokens. The module also provides a function to check the balance of an account.
