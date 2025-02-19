@@ -1,3 +1,6 @@
+To include the image in your `README.md` file, you can use the markdown syntax for embedding images. Here's how you can update your `README.md` to include the image and the test results:
+
+```markdown
 # Move Smart Contract: `Bets` Module
 
 This repository contains a Move smart contract module named `Bets`, which allows users to initialize, deposit, withdraw, and transfer APT tokens. The module also provides a function to check the balance of an account.
@@ -32,98 +35,132 @@ The module is designed to be secure and efficient, leveraging Move's resource-or
 
 ## Getting Started
 
-## Smart Contract (Move)
+### Prerequisites
 
-### Module: `betpool::Bets`
+Before you begin, ensure you have the following installed:
 
-### **Initialize Account**
+- [Move CLI](https://github.com/move-language/move): The Move command-line interface for compiling and testing Move modules.
+- [Aptos CLI](https://aptos.dev/cli): Optional, if you plan to deploy the module on the Aptos blockchain.
 
-```move
-public entry fun initialize(account: &signer)
-```
+### Installation
 
-- Ensures the account does not already have a balance.
-- Sets initial balance to 0.
+1. Clone this repository:
 
-### **Deposit Tokens**
+   ```bash
+   https://github.com/betstash/contracts.git
+   cd contracts
+   ```
 
-```move
-public entry fun deposit(account: &signer, amount: u64) acquires AptBalance
-```
+2. Set up the Move environment:
 
-- Increases the balance by the deposited amount.
-
-### **Withdraw Tokens**
-
-```move
-public entry fun withdraw(account: &signer, amount: u64) acquires AptBalance
-```
-
-- Ensures the user has enough balance before withdrawal.
-- Deducts the withdrawn amount from the balance.
-
-### **Check Balance**
-
-```move
-public fun balance_of(account_addr: address): u64 acquires AptBalance
-```
-
-- Returns the balance of the specified account.
-
-### **Transfer Tokens**
-
-```move
-public fun transfer(from: &signer, to: address, amount: u64) acquires AptBalance
-```
-
-- Ensures the sender has sufficient funds.
-- Deducts the amount from sender and credits the receiver.
+   ```bash
+   move init
+   ```
 
 ---
 
-## Unit Testing (Move)
+## Compiling the Smart Contract
 
-### Module: `betpool::BetsTest`
+To compile the `Bets` module, run the following command:
 
-The test module verifies the functionality of the `Bets` contract.
-
-### **Test Cases:**
-
-- ``: Ensures an account is initialized with zero balance.
-- ``: Deposits tokens and verifies the new balance.
-- ``: Withdraws tokens and verifies the balance reduction.
-- ``: Checks if the correct balance is returned.
-- ``: Transfers tokens between two accounts and verifies balances.
-
-### **Run Tests**
-
-To execute the unit tests, use:
-
-```sh
-aptos move test
+```bash
+move build
 ```
+
+This will compile the Move module and generate the necessary bytecode files in the `build` directory.
 
 ---
 
-## Deployment
+## Testing the Smart Contract
 
-### **Compile the Module**
+The repository includes a set of test cases to verify the functionality of the `Bets` module. To run the tests, use the following command:
 
-```sh
-aptos move compile
+```bash
+move test
 ```
 
-### **Deploy the Module**
+### Test Output
 
-```sh
-aptos move publish --profile default
+If all tests pass, you should see output similar to this:
+
+```
+Running Move unit tests
+[ PASS ] 0x7Bfc7c459af778b2ba1b71e02759eacbcd209974e96b2f0de66ec6bb946b59bc::BetsTest::test_balance_of
+[ PASS ] 0x7Bfc7c459af778b2ba1b71e02759eacbcd209974e96b2f0de66ec6bb946b59bc::BetsTest::test_deposit
+[ PASS ] 0x7Bfc7c459af778b2ba1b71e02759eacbcd209974e96b2f0de66ec6bb946b59bc::BetsTest::test_initialize
+[ PASS ] 0x7Bfc7c459af778b2ba1b71e02759eacbcd209974e96b2f0de66ec6bb946b59bc::BetsTest::test_transfer
+[ PASS ] 0x7Bfc7c459af778b2ba1b71e02759eacbcd209974e96b2f0de66ec6bb946b59bc::BetsTest::test_withdraw
+Test result: OK. Total tests: 5; passed: 5; failed: 0
 ```
 
-### **Run Functions**
+### Test Coverage
 
-Example: Deposit 10 APT tokens
+The test coverage for the module is as follows:
 
-```sh
-aptos move run --function-id <MODULE_ADDRESS>::Bets::deposit --args u64:10
+### Test Results Screenshot
+
+![Test Results](test_coverage.png)
+
+---
+
+## Module Functions
+
+### `initialize(account: &signer)`
+
+Initializes an account with an `AptBalance` resource. The balance is set to `0`.
+
+### `deposit(account: &signer, amount: u64)`
+
+Deposits the specified amount of APT tokens into the account.
+
+### `withdraw(account: &signer, amount: u64)`
+
+Withdraws the specified amount of APT tokens from the account.
+
+### `balance_of(account_addr: address): u64`
+
+Returns the balance of the specified account.
+
+### `transfer(from: &signer, to: address, amount: u64)`
+
+Transfers the specified amount of APT tokens from one account to another.
+
+---
+
+## Test Cases
+
+The following test cases are included to verify the functionality of the `Bets` module:
+
+1. **`test_initialize`**: Verifies that the `initialize` function correctly initializes an account with a balance of `0`.
+2. **`test_deposit`**: Verifies that the `deposit` function correctly increases the balance of an account.
+3. **`test_withdraw`**: Verifies that the `withdraw` function correctly decreases the balance of an account.
+4. **`test_balance_of`**: Verifies that the `balance_of` function returns the correct balance of an account.
+5. **`test_transfer`**: Verifies that the `transfer` function correctly transfers tokens between accounts.
+
+---
+
+## Acknowledgments
+
+- [Move Language Documentation](https://move-language.github.io/move/)
+- [Aptos Developer Documentation](https://aptos.dev)
+
+---
+
+## Support
+
+If you encounter any issues or have questions, please open an issue in this repository or reach out to the maintainers.
+
+---
+
+Happy coding! 🚀
 ```
 
+### How to Use
+
+1. Copy the above script into a file named `README.md`.
+2. Place the `README.md` file in the root directory of your Move project.
+3. Ensure the image file (`Screenshot 2025-02-20 at 12.29.04 AM.png`) is in the same directory as the `README.md` file or provide the correct relative path to the image.
+4. Update the repository URL in the "Installation" section to match your actual repository URL.
+5. Commit and push the `README.md` file and the image to your repository.
+
+This `README.md` provides clear instructions for compiling, testing, and understanding the functionality of your Move smart contract. It also includes a section for acknowledgments and support.
