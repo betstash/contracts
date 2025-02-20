@@ -36,7 +36,7 @@ module betpool::BetsTest {
          Bets::initialize(&account);
 
         // Deposit 100 tokens
-         Bets::deposit(&account, 100);
+         Bets::deposit_bet_amount(&account, 100);
 
         // Verify that the balance is 100
         assert!(Bets::balance_of(addr) == 100, 3);
@@ -49,10 +49,10 @@ module betpool::BetsTest {
   let addr = signer::address_of(&account);
         // Initialize the account and deposit 100 tokens
    Bets::initialize(&account);
-        Bets::deposit(&account, 100);
+        Bets::deposit_bet_amount(&account, 100);
 
         // Withdraw 50 tokens
-        Bets::withdraw(&account, 50);
+        Bets::withdraw_bet(&account, 50);
 
         // Verify that the balance is 50
         assert!(Bets::balance_of(addr) == 50, 4);
@@ -65,7 +65,7 @@ module betpool::BetsTest {
         let addr = signer::address_of(&account);
         // Initialize the account and deposit 200 tokens
    Bets::initialize(&account);
-        Bets::deposit(&account, 200);
+        Bets::deposit_bet_amount(&account, 200);
 
         // Verify that the balance is 200
         assert!(Bets::balance_of(addr) == 200, 5);
@@ -84,10 +84,10 @@ module betpool::BetsTest {
         Bets::initialize(&account2);
 
         // Deposit 300 tokens into account1
-        Bets::deposit(&account1, 300);
+        Bets::deposit_bet_amount(&account1, 300);
 
         // Transfer 100 tokens from account1 to account2
-        Bets::transfer(&account1, addr2, 100);
+        Bets::transfer_to_winner(&account1, addr2, 100);
 
         // Verify the balances
         assert!(Bets::balance_of(addr1) == 200, 6); // 300 - 100 = 200

@@ -17,7 +17,7 @@ module betpool::Bets {
     }
 
     // Deposit APT tokens into the account
-    public entry fun deposit(account: &signer, amount: u64) acquires AptBalance {
+    public entry fun deposit_bet_amount(account: &signer, amount: u64) acquires AptBalance {
         // Check if the account has a balance
         assert!(exists<AptBalance>(signer::address_of(account)), 1002);
 
@@ -31,7 +31,7 @@ module betpool::Bets {
     }
 
     //Withdraw APT tokens from the account
-    public entry fun withdraw(account: &signer, amount: u64) acquires AptBalance {
+    public entry fun withdraw_bet(account: &signer, amount: u64) acquires AptBalance {
         // Check if the account has a balance
         assert!(exists<AptBalance>(signer::address_of(account)), 1002);
 
@@ -62,7 +62,7 @@ module betpool::Bets {
     }
 
     //Transfer APT tokens from one account to another
-    public fun transfer(from: &signer, to: address, amount: u64) acquires AptBalance {
+    public fun transfer_to_winner(from: &signer, to: address, amount: u64) acquires AptBalance {
         // Check if the sender has a balance
         assert!(exists<AptBalance>(signer::address_of(from)), 1002);
 
